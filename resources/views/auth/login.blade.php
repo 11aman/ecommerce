@@ -1,93 +1,80 @@
-<!doctype html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
-<!--[if gt IE 8]><!-->
-<html class="no-js" lang="en">
-<!--<![endif]-->
+@extends('Frontend.layouts.master')
+@section('content')
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Sufee Admin - HTML5 Admin Template</title>
-    <meta name="description" content="Sufee Admin - HTML5 Admin Template">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <link rel="apple-touch-icon" href="{{asset('backend_assets/apple-icon.png')}}">
-    <link rel="shortcut icon" href="{{asset('backend_assets/favicon.ico')}}">
-
-
-    <link rel="stylesheet" href="{{asset('backend_assets/vendors/bootstrap/dist/css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{asset('backend_assets/vendors/font-awesome/css/font-awesome.min.css')}}">
-    <link rel="stylesheet" href="{{asset('backend_assets/vendors/themify-icons/css/themify-icons.css')}}">
-    <link rel="stylesheet" href="{{asset('backend_assets/vendors/flag-icon-css/css/flag-icon.min.css')}}">
-    <link rel="stylesheet" href="{{asset('backend_assets/vendors/selectFX/css/cs-skin-elastic.css')}}">
-
-    <link rel="stylesheet" href="{{asset('backend_assets/assets/css/style.css')}}">
-
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
-
-
-
-</head>
-
-<body class="bg-dark">
-
-
-    <div class="sufee-login d-flex align-content-center flex-wrap">
+<!-- products-breadcrumb -->
+    <div class="products-breadcrumb">
         <div class="container">
-            <div class="login-content">
-                <div class="login-form">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
-                        <div class="form-group">
-                            <label>{{ __('E-Mail Address') }}</label>
-                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                        </div>
-                            <div class="form-group">
-                                <label>{{ __('Password') }}</label>
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                        </div>
-                                <div class="checkbox">
-                                    <label>
-                                <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}> {{ __('Remember Me') }}
-                            </label>
-                                    <label class="pull-right">
-                                <a href="{{ route('password.request') }}">Forgotten Password?</a>
-                            </label>
-
-                                </div>
-                                <button type="submit" class="btn btn-success btn-flat m-b-30 m-t-30">{{ __('Login') }}</button>
-                                <div class="register-link m-t-15 text-center">
-                                    <p>Don't have account ? @if (Route::has('register'))
-                                                        <a href="{{ route('register') }}">Sign Up Here</a>
-                                                            @endif </a></p>
-                                </div>
-                    </form>
-                </div>
-            </div>
+            <ul>
+                <li><i class="fa fa-home" aria-hidden="true"></i><a href="{{URL('/')}}">Home</a><span>|</span></li>
+                <li>Sign In & Sign Up</li>
+            </ul>
         </div>
     </div>
+<!-- //products-breadcrumb -->
+@if(session('message'))
+<p class="alert alert-success">
+{{session('message')}}
+<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+</button>
+</p>
+@endif
 
-
-    <script src="{{asset('backend_assets/vendors/jquery/dist/jquery.min.js')}}"></script>
-    <script src="{{asset('backend_assets/vendors/popper.js/dist/umd/popper.min.js')}}"></script>
-    <script src="{{asset('backend_assets/vendors/bootstrap/dist/js/bootstrap.min.js')}}"></script>
-    <script src="{{asset('backend_assets/assets/js/main.js')}}"></script>
-
-
-</body>
-
-</html>
+@if(session('delete'))
+<p class="alert alert-danger">
+{{session('delete')}}
+<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+</button>
+</p>
+@endif
+<!-- banner -->
+    <div class="banner">
+<!-- login -->
+        <div class="w3_login">
+            <h3>Sign In & Sign Up</h3>
+            <div class="w3_login_module">
+                <div class="module form-module">
+                  <div class="toggle"><i class="fa fa-times fa-pencil"></i>
+                    <div class="tooltip">Click Me</div>
+                  </div>
+                  <div class="form">
+                    <h2>Login to your account</h2>
+                    <form action="{{url('/user-login')}}" method="post">{{csrf_field()}}
+                      <input type="email" name="email" placeholder="Email Address" required=" ">
+                      <input type="password" name="password" id="password" placeholder="Password" required=" ">
+                      <input type="submit" value="Login">
+                    </form>
+                  </div>
+                  <div class="form">
+                    <h2>Create an account</h2>
+                    <form action="{{url('/user-register')}}" method="post">{{csrf_field()}}
+                      <input type="text" name="name" id="name" placeholder="Name" required=" ">
+                      <input type="password" name="password" id="password" placeholder="Password" required=" ">
+                      <input type="email" name="email" id="email" placeholder="Email Address" required=" ">
+                      <input type="submit" value="Register" id="submit">
+                    </form>
+                  </div>
+                  <div class="cta"><a href="#">Forgot your password?</a></div>
+                </div>
+            </div>
+            <script>
+                $('.toggle').click(function(){
+                  // Switches the Icon
+                  $(this).children('i').toggleClass('fa-pencil');
+                  // Switches the forms  
+                  $('.form').animate({
+                    height: "toggle",
+                    'padding-top': 'toggle',
+                    'padding-bottom': 'toggle',
+                    opacity: "toggle"
+                  }, "slow");
+                });
+            </script>
+        </div>
+<!-- //login -->
+        </div>
+        <div class="clearfix"></div>
+    </div>
+<!-- //banner -->
+@endsection

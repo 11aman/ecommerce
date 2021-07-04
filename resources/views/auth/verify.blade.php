@@ -1,10 +1,13 @@
-@extends('layouts.app')
+@extends('Frontend.layouts.master')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
+<!-- banner -->
+    <div class="banner">
+<!-- login -->
+        <div class="w3_login">
+                <div class="module form-module">
+                  <div class="toggle"></div>
+                  <div class="form">
                 <div class="card-header">{{ __('Verify Your Email Address') }}</div>
 
                 <div class="card-body">
@@ -22,7 +25,8 @@
                     </form>
                 </div>
             </div>
+                  </div>
+<!-- //login -->
         </div>
-    </div>
-</div>
+<!-- //banner -->
 @endsection
